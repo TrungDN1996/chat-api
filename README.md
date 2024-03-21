@@ -41,7 +41,7 @@ $ npm run test:cov
 
 ## Stay in touch
 
-- Email - [Kamil Myśliwiec](https://kamilmysliwiec.com)
+- Email - [nguyentrung96dn@gmail.com]
 - Linkedin - [https://nestjs.com](https://nestjs.com/)
 
 ## License
