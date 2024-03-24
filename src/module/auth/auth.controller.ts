@@ -6,7 +6,7 @@ import { RegisterUserDto } from '../auth/dto/register-user.dto';
 import { ApiTags, ApiResponse } from '@nestjs/swagger';
 
 @ApiTags('auth')
-@Controller('auth')
+@Controller('api/auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 

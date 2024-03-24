@@ -13,7 +13,12 @@ export class UsersRepository {
     return findOne;
   }
 
-  async createOne(user: UserDo): Promise<any> {
+  async findAll(): Promise<any> {
+    const findAll = await this.userModel.find();
+    return findAll;
+  }
+
+  async createOne(user: any): Promise<any> {
     const createOne = await this.userModel.create(user);
     return createOne;
   }
