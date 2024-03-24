@@ -20,7 +20,7 @@ export class ChatsController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get(':id')
+  @Get('by-user/:id')
   async getAllChatsByUserId(@Param(':id') id: string) {
     return await this.chatsService.findAllChats(id);
   }
