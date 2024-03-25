@@ -10,7 +10,7 @@ export class UsersController {
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  async getAllChatsByUserId() {
+  async getAll() {
     return await this.usersService.findAll();
   }
 }

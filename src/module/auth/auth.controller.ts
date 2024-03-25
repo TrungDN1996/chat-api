@@ -2,8 +2,8 @@ import { Controller, Post, Body, UseGuards } from '@nestjs/common';
 import { LocalAuthGuard } from './local-auth.guard';
 import { AuthService } from './auth.service';
 import { LoginUserDto } from './dto/login-user.dto';
-import { RegisterUserDto } from '../auth/dto/register-user.dto';
 import { ApiTags, ApiResponse } from '@nestjs/swagger';
+import { CreateUserDto } from '../users/dto/create-user.dto';
 
 @ApiTags('auth')
 @Controller('api/auth')
@@ -21,7 +21,7 @@ export class AuthController {
     status: 201,
     description: 'The user has been successfully created.',
   })
-  async register(@Body() registerUserDto: RegisterUserDto) {
+  async register(@Body() registerUserDto: CreateUserDto) {
     return await this.authService.register(registerUserDto);
   }
 }

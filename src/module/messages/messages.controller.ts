@@ -15,13 +15,13 @@ export class MessagesController {
     status: 201,
     description: 'The message has been successfully created.',
   })
-  async createMessage(@Body() createMessageDto: CreateMessageDto) {
-    return await this.messagesService.createMessage(createMessageDto);
+  async create(@Body() createMessageDto: CreateMessageDto) {
+    return await this.messagesService.create(createMessageDto);
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('by-user/:id')
-  async getAllMessagesByChatId(@Param('id') id: string) {
-    return await this.messagesService.findAllMessages(id);
+  @Get('by-room/:id')
+  async getAllByRoomId(@Param('id') id: string) {
+    return await this.messagesService.findAllByRoomId(id);
   }
 }

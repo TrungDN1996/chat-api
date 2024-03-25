@@ -1,20 +1,24 @@
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { MessageDo } from 'src/_schemas/message.do';
+import { Message } from 'src/_schemas/message.schema';
+import { CreateMessageDto } from './dto/create-message.dto';
+import { IMessage } from './entities/message.entity';
 
 export class MessagesRepository {
   constructor(
-    @InjectModel('Message')
-    private messageModel: Model<MessageDo>,
+    @InjectModel(Message.name)
+    private messageModel: Model<IMessage>,
   ) {}
 
-  async createMessage(message: any): Promise<any> {
-    const createOne = await this.messageModel.create(message);
-    return createOne;
+  async create(message: CreateMessageDto): Promise<IMessage> {
+    const createMessage = new this.messageModel(message);
+    return await createMessage.save();
   }
 
-  async findAllMessages(id: string): Promise<any> {
-    const findAll = await this.messageModel.find({ chat_id: { $all: [id] } });
-    return findAll;
+  async findAllByRoomId(id: string): Promise<IMessage[]> {
+    return await this.messageModel.find({ room: { $all: [id] } })
+      .populate('room')
+      .populate('sender')
+      .exec();
   }
 }

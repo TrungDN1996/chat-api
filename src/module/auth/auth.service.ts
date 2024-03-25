@@ -7,8 +7,10 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from 'src/module/users/users.service';
 import { LoginUserDto } from '../auth/dto/login-user.dto';
-import { RegisterUserDto } from '../auth/dto/register-user.dto';
 import * as bcrypt from 'bcrypt';
+import { CreateUserDto } from '../users/dto/create-user.dto';
+import { TokenDto } from './dto/token.dto';
+import { IUser } from '../users/entities/user.entity';
 
 @Injectable()
 export class AuthService {
@@ -17,7 +19,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async validateUser(email: string, password: string): Promise<any> {
+  async validateUser(email: string, password: string): Promise<IUser> {
     const user = await this.usersService.findOne(email);
     if (!user) {
       throw new NotFoundException('User not found');
@@ -29,7 +31,7 @@ export class AuthService {
     }
   }
 
-  async login(loginUserDto: LoginUserDto) {
+  async login(loginUserDto: LoginUserDto): Promise<TokenDto> {
     const user = await this.validateUser(
       loginUserDto.email,
       loginUserDto.password,
@@ -46,8 +48,8 @@ export class AuthService {
     }
   }
 
-  async register(registerUserDto: RegisterUserDto) {
-    const user = await this.usersService.findOne(registerUserDto.email);
+  async register(createUserDto: CreateUserDto): Promise<TokenDto> {
+    const user = await this.usersService.findOne(createUserDto.email);
     if (user) {
       throw new HttpException(
         'User with this email exist',
@@ -55,15 +57,15 @@ export class AuthService {
       );
     }
     const saltOrRounds = 10;
-    const hash = await bcrypt.hash(registerUserDto.password, saltOrRounds);
-    const createOne = await this.usersService.createOne({
-      ...registerUserDto,
+    const hash = await bcrypt.hash(createUserDto.password, saltOrRounds);
+    const createOne = await this.usersService.create({
+      ...createUserDto,
       password: hash,
     });
     if (createOne) {
       const payload = {
         email: createOne.email,
-        sub: createOne._id,
+        sub: createOne._id ,
       };
       return {
         access_token: this.jwtService.sign(payload),

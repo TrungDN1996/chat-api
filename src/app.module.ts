@@ -5,8 +5,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './module/auth/auth.module';
 import { UsersModule } from './module/users/users.module';
-import { ChatsModule } from './module/chats/chats.module';
 import { MessagesModule } from './module/messages/messages.module';
+import { AppGateway } from './app.gateway';
+import { RoomsModule } from './module/rooms/rooms.module';
 
 @Module({
   imports: [
@@ -14,10 +15,10 @@ import { MessagesModule } from './module/messages/messages.module';
     MongooseModule.forRoot(process.env.MONGO_CONNECTION_STRING || ''),
     AuthModule,
     UsersModule,
-    ChatsModule,
-    MessagesModule
+    MessagesModule,
+    RoomsModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, AppGateway],
 })
 export class AppModule {}

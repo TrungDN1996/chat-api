@@ -5,12 +5,12 @@ export class CreateMessageDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  chat_id: string;
+  room: string;
 
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  sender_id: string;
+  sender: string;
 
   @ApiProperty()
   @IsNotEmpty()
