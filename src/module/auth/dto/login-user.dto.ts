@@ -5,7 +5,7 @@ export class LoginUserDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsEmail()
-  email: string;
+  username: string;
 
   @ApiProperty()
   @IsNotEmpty()

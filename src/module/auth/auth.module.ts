@@ -10,7 +10,6 @@ import { jwtConstants } from '../../core/constants';
 
 @Module({
   imports: [
-    AuthModule,
     UsersModule,
     PassportModule,
     JwtModule.register({
