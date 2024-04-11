@@ -42,4 +42,4 @@ $ npm run test:cov
 ## Stay in touch
 
 - Email - nguyentrung96dn@gmail.com
-- Linkedin - [linkedin.com](https://www.linkedin.com/in/trung-nguyen-thanh-6849a62b9/)
+- Linkedin - [linkedin.com](https://www.linkedin.com/in/trungnguyen-be)
